@@ -22,7 +22,8 @@ module.exports = (app) => {
             "stats": {
                 "comments": 123,
                 "retweets": 234,
-                "likes": 345
+                "likes": 345,
+                "dislikes":99
             },
             ...req.body,
         }
@@ -61,6 +62,26 @@ module.exports = (app) => {
         res.sendStatus(200);
     }
     app.put('/api/tuits/:id/like', likeTuit);
+
+    const dislikeTuit = (req, res) => {
+        const id = req.params['id'];
+        tuits = tuits.map(tuit => {
+            if (tuit._id === id) {
+                if (tuit.disliked === true) {
+                    tuit.disliked = false;
+                    tuit.stats.dislikes--;
+                } else {
+                    tuit.disliked = true;
+                    tuit.stats.dislikes++;
+                }
+                return tuit;
+            } else {
+                return tuit;
+            }
+        });
+        res.sendStatus(200);
+    }
+    app.put('/api/tuits/:id/dislike', dislikeTuit);
 
 };
 
