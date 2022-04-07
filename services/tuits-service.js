@@ -8,7 +8,7 @@ module.exports = (app) => {
 
     app.get('/api/tuits', findAllTuits);
 
-    const postNewTuit = (req, res) => {
+    const postNewTuit = (req, res) => { 
         const newTuit = {
             _id: (new Date()).getTime() + '',
             "topic": "Web Development",
@@ -16,6 +16,7 @@ module.exports = (app) => {
             "verified": false,
             "handle": "phantomSixth",
             "time": "2h",
+            "tweet":req.body,
             "avatar-image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGBv3q1iB7_9sDod2bCjZLBRtWMPHNLkji_Vl8SJEAzHphiJf3haTYTFjQyJjkx_ns_ag&usqp=CAU",
             "logo-image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGBv3q1iB7_9sDod2bCjZLBRtWMPHNLkji_Vl8SJEAzHphiJf3haTYTFjQyJjkx_ns_ag&usqp=CAU",
             "stats": {
