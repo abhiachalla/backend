@@ -37,6 +37,7 @@ import tuits from '../data/tuits.js';
 
 
     const deleteTuit = (req, res) => {
+        console.log('entered here!')
         const id = req.params['id'];
         tuits = tuits.filter(tuit => tuit._id !== id);
         res.sendStatus(200);
