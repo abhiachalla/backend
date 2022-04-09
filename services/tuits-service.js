@@ -1,6 +1,6 @@
-let tuits = require('../data/tuits.json');
+import tuits from '../data/tuits.js';
 
-module.exports = (app) => {
+const tuitsController = (app) => {
 
     const findAllTuits = (req, res) => {
         res.json(tuits);
@@ -88,4 +88,4 @@ module.exports = (app) => {
 
 
 
- 
+ export default tuitsController;
