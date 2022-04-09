@@ -1,9 +1,6 @@
 
-import cors from 'cors';
-import express from 'express';
-import userController from './services/users-service.js';
-import tuitsController from './services/tuits-service.js';
-
+const cors = require('cors');
+const express = require('express');
 const app = express(); 
 app.use(cors());
 
@@ -19,11 +16,8 @@ app.get('/', (req, res) => {
     res.send('Please append /api/tuits to this link to see the tuits!');
 });
  
-
-userController(app);
-tuitsController(app);
-
-
+require('./services/tuits-service')(app);
+require('./services/users-service')(app);
 
 
 app.listen(process.env.PORT || 4001);

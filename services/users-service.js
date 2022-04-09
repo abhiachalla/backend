@@ -1,4 +1,4 @@
-import people from './users.js';
+let people = require('../data/users');
 let users = people;
 
 const userController = (app) => {

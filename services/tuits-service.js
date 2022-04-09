@@ -1,14 +1,14 @@
-import tuits from '../data/tuits.js';
+let tuits = require('../data/tuits.json');
 
-
+module.exports = (app) => {
 
     const findAllTuits = (req, res) => {
         res.json(tuits);
     }
 
+    app.get('/api/tuits', findAllTuits);
 
-
-    const createTuit = (req, res) => { 
+    const postNewTuit = (req, res) => { 
         const newTuit = {
             _id: (new Date()).getTime() + '',
             "topic": "Web Development",
@@ -34,15 +34,14 @@ import tuits from '../data/tuits.js';
         res.json(newTuit);
     }
 
-
+    app.post('/api/tuits', postNewTuit);
 
     const deleteTuit = (req, res) => {
-        console.log('entered here!')
         const id = req.params['id'];
         tuits = tuits.filter(tuit => tuit._id !== id);
         res.sendStatus(200);
     }
-
+    app.delete('/api/tuits/:id', deleteTuit);
 
     const likeTuit = (req, res) => {
         const id = req.params['id'];
@@ -62,7 +61,7 @@ import tuits from '../data/tuits.js';
         });
         res.sendStatus(200);
     }
-
+    app.put('/api/tuits/:id/like', likeTuit);
 
     const dislikeTuit = (req, res) => {
         const id = req.params['id'];
@@ -82,17 +81,11 @@ import tuits from '../data/tuits.js';
         });
         res.sendStatus(200);
     }
+    app.put('/api/tuits/:id/dislike', dislikeTuit);
+
+};
 
 
 
 
-
-
-
-export default (app) => {
-    app.post('/api/tuits', createTuit);
-    app.get('/api/tuits', findAllTuits);
-    app.put('/api/tuits/:tid', dislikeTuit);
-    app.delete('/api/tuits/:tid', deleteTuit);
-   }
-   
+ 
