@@ -8,9 +8,7 @@ module.exports = (app) => {
     const userController = (app) => {
         app.get('/api/users', findAllUsers);
        }
-       
-
-};
+};  
 
 
 
