@@ -1,36 +1,97 @@
-import posts from "../data/tuits.js";
-let tuits = posts;
+import tuits from '../data/tuits.js';
 
-const createTuit = (req, res) => {
-    const newTuit = req.body;
-    newTuit._id = (new Date()).getTime()+'';
-    newTuit.likes = 0;
-    tuits.push(newTuit);
-    res.json(newTuit);
-   }
-   
 
-const findAllTuits = (req, res) =>
- res.json(tuits);
 
- const updateTuit = (req, res) => {
-    const tuitdIdToUpdate = req.params.tid;
-    const updatedTuit = req.body;
-    tuits = tuits.map(t => t._id === tuitdIdToUpdate ? updatedTuit : t);
-    res.sendStatus(200);
-   }
-   
+    const findAllTuits = (req, res) => {
+        res.json(tuits);
+    }
 
-const deleteTuit = (req, res) => {
-    const tuitdIdToDelete = req.params.tid;
-    tuits = tuits.filter(t => t._id !== tuitdIdToDelete);
-    res.sendStatus(200);
-   }
-   
+
+
+    const postNewTuit = (req, res) => { 
+        const newTuit = {
+            _id: (new Date()).getTime() + '',
+            "topic": "Web Development",
+            "userName": "Abhi Achalla",
+            "verified": false,
+            "handle": "phantomSixth",
+            "time": "2h",
+            "tweet":req.body,
+            "avatar-image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGBv3q1iB7_9sDod2bCjZLBRtWMPHNLkji_Vl8SJEAzHphiJf3haTYTFjQyJjkx_ns_ag&usqp=CAU",
+            "logo-image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGBv3q1iB7_9sDod2bCjZLBRtWMPHNLkji_Vl8SJEAzHphiJf3haTYTFjQyJjkx_ns_ag&usqp=CAU",
+            "stats": {
+                "comments": 123,
+                "retweets": 234,
+                "likes": 345,
+                "dislikes":99
+            },
+            ...req.body,
+        }
+        tuits = [
+            newTuit,
+            ...tuits
+        ];
+        res.json(newTuit);
+    }
+
+
+
+    const deleteTuit = (req, res) => {
+        const id = req.params['id'];
+        tuits = tuits.filter(tuit => tuit._id !== id);
+        res.sendStatus(200);
+    }
+
+
+    const likeTuit = (req, res) => {
+        const id = req.params['id'];
+        tuits = tuits.map(tuit => {
+            if (tuit._id === id) {
+                if (tuit.liked === true) {
+                    tuit.liked = false;
+                    tuit.stats.likes--;
+                } else {
+                    tuit.liked = true;
+                    tuit.stats.likes++;
+                }
+                return tuit;
+            } else {
+                return tuit;
+            }
+        });
+        res.sendStatus(200);
+    }
+
+
+    const dislikeTuit = (req, res) => {
+        const id = req.params['id'];
+        tuits = tuits.map(tuit => {
+            if (tuit._id === id) {
+                if (tuit.disliked === true) {
+                    tuit.disliked = false;
+                    tuit.stats.dislikes--;
+                } else {
+                    tuit.disliked = true;
+                    tuit.stats.dislikes++;
+                }
+                return tuit;
+            } else {
+                return tuit;
+            }
+        });
+        res.sendStatus(200);
+    }
+
+
+
+
+
+
 
 export default (app) => {
- app.post('/api/tuits', createTuit);
- app.get('/api/tuits', findAllTuits);
- app.put('/api/tuits/:tid', updateTuit);
- app.delete('/api/tuits/:tid', deleteTuit);
-}
+    app.post('/api/tuits', createTuit);
+    app.get('/api/tuits', findAllTuits);
+    app.put('/api/tuits/:tid', updateTuit);
+    app.delete('/api/tuits/:tid', deleteTuit);
+   }
+   
