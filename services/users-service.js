@@ -5,9 +5,7 @@ module.exports = (app) => {
     const findAllUsers = (req, res) => {
         res.json(users);
        }
-    const userController = (app) => {
-        app.get('/api/users', findAllUsers);
-       }
+       app.get('/api/users', findAllUsers);
 };  
 
 
