@@ -8,7 +8,7 @@ import tuits from '../data/tuits.js';
 
 
 
-    const postNewTuit = (req, res) => { 
+    const createTuit = (req, res) => { 
         const newTuit = {
             _id: (new Date()).getTime() + '',
             "topic": "Web Development",
@@ -91,7 +91,7 @@ import tuits from '../data/tuits.js';
 export default (app) => {
     app.post('/api/tuits', createTuit);
     app.get('/api/tuits', findAllTuits);
-    app.put('/api/tuits/:tid', updateTuit);
+    app.put('/api/tuits/:tid', dislikeTuit);
     app.delete('/api/tuits/:tid', deleteTuit);
    }
    
