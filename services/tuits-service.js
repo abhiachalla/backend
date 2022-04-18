@@ -1,14 +1,23 @@
-let tuits = require('../data/tuits.json');
+const tuitsDao = require('../models/tuitsdao')
+
+
 
 module.exports = (app) => {
 
-    const findAllTuits = (req, res) => {
+    
+    const findAllTuits = async (req, res) => {
+        const tuits = await tuitsDao.findAllTuits()
         res.json(tuits);
     }
 
     app.get('/api/tuits', findAllTuits);
 
-    const postNewTuit = (req, res) => { 
+    const postNewTuit = async (req, res) => { 
+        console.log("jnkjnjiinijklt")
+        console.log("new tuit cretaed")
+       
+
+        
         const newTuit = {
             _id: (new Date()).getTime() + '',
             "topic": "Web Development",
@@ -27,19 +36,25 @@ module.exports = (app) => {
             },
             ...req.body,
         }
-        tuits = [
-            newTuit,
-            ...tuits
-        ];
-        res.json(newTuit);
+        // tuits = [
+        //     newTuit,
+        //     ...tuits
+        // ];
+
+        const insertedTuit = await tuitsDao.createTuit(newTuit);
+        
+        res.json(insertedTuit);
     }
 
     app.post('/api/tuits', postNewTuit);
 
-    const deleteTuit = (req, res) => {
-        const id = req.params['id'];
-        tuits = tuits.filter(tuit => tuit._id !== id);
-        res.sendStatus(200);
+    const deleteTuit = async (req, res) => {
+        const tuitdIdToDelete = req.params.tid;
+        // const id = req.params['id'];
+        // tuits = tuits.filter(tuit => tuit._id !== id);
+        // res.sendStatus(200);
+        const status = await tuitsDao.deleteTuit(tuitdIdToDelete);
+        res.send(status);
     }
     app.delete('/api/tuits/:id', deleteTuit);
 

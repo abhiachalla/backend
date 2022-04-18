@@ -1,8 +1,19 @@
+const TuitsController = require('./services/tuits-service')
+const mongoose = require('mongoose')
+const CONNECTION_STRING = "mongodb+srv://abhi:abhi@cluster0.gpijs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+mongoose.connect(CONNECTION_STRING)
+
+
+
 
 const cors = require('cors');
 const express = require('express');
+const { Mongoose } = require('mongoose');
 const app = express(); 
 app.use(cors());
+
+
+
 
 
 
