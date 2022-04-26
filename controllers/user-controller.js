@@ -46,6 +46,19 @@ module.exports = (app) => {
         res.sendStatus(200);
        }
        app.delete('/api/users/:uid', deleteUser);       
+
+
+
+       const updateUser = (req, res) => {
+        const userId = req.params['uid'];
+        const updatedUser = req.body;
+        people = people.map(usr =>
+          usr._id === userId ?
+          updatedUser :
+          usr);
+        res.sendStatus(200);
+       }
+       app.put('/api/users/:uid', updateUser);       
     
        
 }

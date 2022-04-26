@@ -1,10 +1,11 @@
-const TuitsController = require('./services/tuits-service')
+// const TuitsController = require('./services/tuits-service')
 const mongoose = require('mongoose')
 const CONNECTION_STRING = "mongodb+srv://abhi:abhi@cluster0.gpijs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 mongoose.connect(CONNECTION_STRING)
 
 const helloController = require("./controllers/hello-controller.js");
 const userController = require("./controllers/user-controller.js");
+const TuitsController = require("./services/tuits-service.js");
 
 
 const cors = require('cors');
@@ -19,6 +20,7 @@ app.use(cors());
 
 helloController(app);
 userController(app);
+TuitsController(app);
 
 
 
@@ -31,7 +33,7 @@ app.get('/', (req, res) => {
     res.send('Please append /api/tuits to this link to see the tuits!');
 });
  
-require('./services/tuits-service')(app);
+// require('./services/tuits-service')(app);
 
 // require('./services/users-service')(app);
 
