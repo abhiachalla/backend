@@ -1,4 +1,4 @@
-const people = require('../data/users.json');
+let people = require('../data/users.json');
 let duppeople = people
 
 module.exports = (app) => {
@@ -25,6 +25,27 @@ module.exports = (app) => {
        }
        
     app.get('/api/users/:uid', findUserById);
+
+
+    const createUser = (req, res) => {
+        console.log("entered create user");
+        const newUser = req.body;
+        newUser._id = (new Date()).getTime() + '';
+        people.push(newUser);
+        res.json(newUser);
+       }
+       
+
+    app.post('/api/users', createUser);
+
+    const deleteUser = (req, res) => {
+        console.log("deleted")
+        const userId = req.params['uid'];
+        people = people.filter(usr =>
+          usr._id !== userId);
+        res.sendStatus(200);
+       }
+       app.delete('/api/users/:uid', deleteUser);       
     
        
 }

@@ -7,12 +7,12 @@ const helloController = require("./controllers/hello-controller.js");
 const userController = require("./controllers/user-controller.js");
 
 
-
-
 const cors = require('cors');
 const express = require('express');
 const { Mongoose } = require('mongoose');
 const app = express(); 
+app.use(express.json());
+
 app.use(cors());
 
 
